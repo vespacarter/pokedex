@@ -1,0 +1,60 @@
+<h1>Porrémon</h1>
+
+<!-- List of pokemon -->
+<ul class="pokedex-list">
+  <% @pokemon.each do |pkmn| %>
+    <li>
+      <button class="js-show-pokemon btn btn-link"
+          data-pokemon-uri="<%= pkmn["resource_uri"] %>">
+        <%= pkmn["name"] %>
+      </button>
+    </li>
+  <% end %>
+</ul>
+
+
+<!-- Pokemon modal view (hidden at first) -->
+<div class="modal fade" id="pokemon-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal">
+          <span>&times;</span>
+        </button>
+
+        <h3 class="modal-title">
+          <span id="pkmn-name">Feraligtr</span>
+          <small id="pkmn-number">#160</small>
+        </h3>
+      </div><!-- .modal-header -->
+
+      <div class="modal-body">
+        <dl class="dl-horizontal">
+          <dt>Height</dt>
+          <dd id="pkmn-height">23</dd>
+
+          <dt>Weight</dt>
+          <dd id="pkmn-weight">888</dd>
+
+          <dt>Stats</dt>
+          <dd>HP: <span id="pkmn-hp">00</span></dd>
+          <dd>Attack: <span id="pkmn-attack">00</span></dd>
+          <dd>Defense: <span id="pkmn-defense">00</span></dd>
+          <dd>Special Attack: <span id="pkmn-sp-attack">00</span></dd>
+          <dd>Special Defense: <span id="pkmn-sp-defense">00</span></dd>
+          <dd>Speed: <span id="pkmn-speed">00</span></dd>
+
+          <dt>Types</dt>
+          <dd id="pkmn-types">normal</dd>          
+        </dl>
+        <h3 class="modal-title">
+        <div>Description</div>
+      <small id="pkmn-description">Whatever descripts this crap.</small>
+      </h3>
+      <img id="pkmn-sprite" src="none.jpg">
+      </div><!-- .modal-body -->
+
+    </div><!-- .modal-content -->
+  </div><!-- .modal-dialog -->
+</div><!-- .modal -->
