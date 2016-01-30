@@ -12,9 +12,9 @@ PokemonApp.Pokemon.prototype.render = function () {
     url: "/api/pokemon/" + this.id,
     success: function (response) {
       self.info = response;
-
-      console.log("Pokemon info:");
-      console.log(self.info);
+      console.debug('CHARACTER LOADED SUCCESFULLY');
+      //console.log("Pokemon info:");
+      //console.log(self.info);
       $("#pkmn-name").text(self.info.name);
       $("#pkmn-number").text(self.info.pkdx_id);
       $("#pkmn-height").text(self.info.height);
@@ -31,9 +31,10 @@ PokemonApp.Pokemon.prototype.render = function () {
       	types += type.name + ' ';
       });
       $("#pkmn-types").text(types);
-      $("#pkmn-sprite").attr("src",self.getSprite(self.info.sprites[0].resource_uri));
+      self.showHighestDesc(self.info.descriptions);
+      self.getSprite(self.info.sprites[0].resource_uri);
       $("#pokemon-modal").modal("show");
-
+      
     }
   });
 
@@ -50,9 +51,32 @@ PokemonApp.Pokemon.prototype.getSprite = function(spriteUri){
   $.ajax({
     url: spriteUri,
     success: function (response) {
-    	return 'http://pokeapi.co' + response.image;
+    	console.debug("SPRITE OBTAINED SUCCESFULLY");
+    	$("#pkmn-sprite").attr("src",'http://pokeapi.co' + response.image);
     }
   });
+
+};
+
+PokemonApp.Pokemon.prototype.showHighestDesc = function(descriptions){
+	var descUri = "";
+	var highestDesc = 0;
+	var self = this;
+
+	descriptions.forEach(function(description){
+		var arr = description.name.split('_');
+		if (arr[(arr.length)-1] > highestDesc ){
+			highestDesc = arr[(arr.length)-1];
+			descUri = description.resource_uri;
+		}
+	});
+	$.ajax({
+    	url: descUri,
+    	success: function (response) {
+    		console.debug("DESCRIPTION OBTAINED SUCCESFULLY");
+    		$('#pkmn-description').text(response.description);
+    	}
+ 	});
 
 };
 
