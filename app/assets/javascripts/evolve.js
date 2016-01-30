@@ -11,10 +11,8 @@ PokemonApp.PokemonEvolutions.prototype.render = function () {
 
 $(document).on("ready", function () {
 
-  $(".js-show-evolves").on("click", function (event) {
-
-
-
+  $("#btn-evolution").on("click", function (event) {
+  	$(".evolution-body").toggleClass("hide");
   });
 
 });

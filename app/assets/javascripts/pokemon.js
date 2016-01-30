@@ -6,7 +6,10 @@ PokemonApp.Pokemon = function (pokemonUri) {
 
 PokemonApp.Pokemon.prototype.render = function () {
   console.log("Rendering pokemon: #" + this.id);
-  
+
+  PokemonApp.clearModal();
+
+  $("#pokemon-modal").modal("show");
   var self = this;
   $.ajax({
     url: "/api/pokemon/" + this.id,
@@ -14,7 +17,7 @@ PokemonApp.Pokemon.prototype.render = function () {
       self.info = response;
       console.debug('CHARACTER LOADED SUCCESFULLY');
       //console.log("Pokemon info:");
-      //console.log(self.info);
+      console.log(self.info);
       $("#pkmn-name").text(self.info.name);
       $("#pkmn-number").text(self.info.pkdx_id);
       $("#pkmn-height").text(self.info.height);
@@ -33,7 +36,7 @@ PokemonApp.Pokemon.prototype.render = function () {
       $("#pkmn-types").text(types);
       self.showHighestDesc(self.info.descriptions);
       self.getSprite(self.info.sprites[0].resource_uri);
-      $("#pokemon-modal").modal("show");
+      
       
     }
   });
@@ -92,3 +95,18 @@ $(document).on("ready", function () {
 
 });
 
+PokemonApp.clearModal = function(){
+	  $("#pkmn-name").text("loading...");
+      $("#pkmn-number").text("loading...");
+      $("#pkmn-height").text("loading...");
+      $("#pkmn-weight").text("loading...");
+      $("#pkmn-hp").text("loading...");
+      $("#pkmn-attack").text("loading...");
+      $("#pkmn-defense").text("loading...");
+      $("#pkmn-sp-attack").text("loading...");
+      $("#pkmn-sp-defense").text("loading...");
+      $("#pkmn-speed").text("loading...");
+      $("#pkmn-types").text("loading...");
+      $("#pkmn-sprite").attr("src","");
+      $('#pkmn-description').text("loading...");
+};
